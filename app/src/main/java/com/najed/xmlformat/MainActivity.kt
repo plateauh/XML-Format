@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -23,10 +24,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getStudents(): ArrayList<Student>{
-        val studentsList = arrayListOf<Student>()
-        studentsList.add(Student(1, "Najed", 20f))
-        studentsList.add(Student(2, "n", 50f))
-        studentsList.add(Student(3, "a", 50f))
+        var studentsList = arrayListOf<Student>()
+        try {
+            val parser = XMLParser()
+            val inputStream = assets.open("studentdetails.xml")
+            studentsList = parser.parse(inputStream)
+        } catch (e: Exception){ e.printStackTrace() }
         return studentsList
     }
 }
